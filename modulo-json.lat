@@ -1,0 +1,29 @@
+/*
+* Autor: Lorucino
+* Fecha: 25/11/2022
+* Descripción: Este modulo otorga funcionalidades para facilitar el trabajo
+* con archivos JSON
+*/
+
+/**
+  * lee un fichero con extension .json
+  *
+  * @param ruta La ruta al documento que se quiere leer.
+  * @return devuelve un diccionario con el json en cuestion
+  *     o falso en caso de tener la extension incorrecta o no
+        encontrar el archivo en la ruta especifica.
+  */
+funcion leerArchivo(ruta)
+    si !cadena.termina_con(ruta, ".json")
+        escribir("[ERROR] el archivo no tiene la extensión correcta")
+        retornar falso
+    fin
+    archivoJSON = archivo.leer(ruta)
+    archivoJSON = "retornar ("..archivoJSON..")"
+    diccionario = cadena.ejecutar(archivoJSON)
+    retornar diccionario
+fin
+
+retornar {
+    "leerArchivo" : leerArchivo
+}
