@@ -19,7 +19,9 @@ funcion leerArchivo(ruta)
         retornar falso
     fin
     archivoJSON = archivo.leer(ruta)
-    archivoJSON = "retornar ("..archivoJSON..")"
+    archivoJSON = cadena.reemplazar(archivoJSON, "true", "verdadero")
+    archivoJSON = cadena.reemplazar(archivoJSON, "false", "falso")
+    archivoJSON = "retornar "..archivoJSON
     diccionario = cadena.ejecutar(archivoJSON)
     retornar diccionario
 fin
