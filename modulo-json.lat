@@ -5,6 +5,18 @@
 * con archivos JSON
 */
 
+funcion contadorDePares(texto, pareja)
+    contador = 0
+    desde (i = 0; i < cadena.longitud(texto); i++)
+        si texto[i] == pareja[0]
+            contador++
+        osi texto[i] == pareja[1]
+            contador--
+        fin
+    fin
+    retornar contador
+fin
+
 /**
   * lee un fichero con extension .json
   *
@@ -14,17 +26,31 @@
         encontrar el archivo en la ruta especifica.
   */
 funcion leerArchivo(ruta)
-    si !cadena.termina_con(ruta, ".json")
-        escribir("[ERROR] el archivo no tiene la extensión correcta")
+    // Se comprueba que la extensión sea la correcta
+    si !cadena.termina_con(ruta, '.json')
+        escribir('[ERROR] el archivo no tiene la extensión correcta')
         retornar falso
     fin
+
+    // Leer el archivo como cadena de texto
     archivoJSON = archivo.leer(ruta)
-    archivoJSON = cadena.reemplazar(archivoJSON, "true", "verdadero")
-    archivoJSON = cadena.reemplazar(archivoJSON, "false", "falso")
+
+    // mirar que todos las llaves tengan pareja
+    si contadorDePares(archivoJSON, ['{','}']) != 0
+        escribir('[ERROR] El numero de llaves de apertura y cierre { } no coincide.')
+    osi contadorDePares(archivoJSON, ['[',']']) != 0
+        escribir('[ERROR] El numero de corchetes de apertura y cierre [ ] no coincide.')
+    fin
+
+    // comprobar que el valor de los pares esten en el formato correcto de latino
+    archivoJSON = cadena.reemplazar(archivoJSON, 'true', 'verdadero')
+    archivoJSON = cadena.reemplazar(archivoJSON, 'false', 'falso')
     archivoJSON = "retornar "..archivoJSON
     diccionario = cadena.ejecutar(archivoJSON)
     retornar diccionario
 fin
+
+leerArchivo('prueba.json')
 
 retornar {
     "leerArchivo" : leerArchivo
